@@ -36,25 +36,27 @@ if ($submission['leader_id'] != $_SESSION['user_id'] &&
     die("Access denied");
 }
 
-// Get file path
-$file_path = $submission['file_path'];
+// Get file path (stored as relative ../assets/images/uploads/...)
+$stored_path = $submission['file_path'];
+// Normalize: strip any leading ../ and prepend project root relative to this file
+$relative_path = ltrim(str_replace('..', '', $stored_path), '/\\');
+$abs_candidate = __DIR__ . '/../' . $relative_path;
+$abs_path = realpath($abs_candidate) ?: $abs_candidate; // realpath fails if missing file; keep candidate for existence check
+$uploads_dir = realpath(__DIR__ . '/../assets/images/uploads');
 
-// Security: Prevent directory traversal
-$file_path = realpath($file_path);
-$uploads_dir = realpath('../assets/images/uploads/');
-
-if (!$file_path || strpos($file_path, $uploads_dir) !== 0) {
+// Validate path stays inside uploads directory (prefix match)
+if (!$uploads_dir || strpos($abs_path, $uploads_dir) !== 0) {
     die("Invalid file path");
 }
 
 // Check if file exists
-if (!file_exists($file_path)) {
+if (!file_exists($abs_path)) {
     die("File not found on server");
 }
 
 // Get file info
-$file_name = basename($file_path);
-$file_size = filesize($file_path);
+$file_name = basename($abs_path);
+$file_size = filesize($abs_path);
 $file_ext = strtolower(pathinfo($file_name, PATHINFO_EXTENSION));
 
 // Set MIME type
@@ -112,6 +114,6 @@ if (ob_get_level()) {
 }
 
 // Read and output file
-readfile($file_path);
+readfile($abs_path);
 exit;
 ?>

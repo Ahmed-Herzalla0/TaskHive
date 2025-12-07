@@ -92,6 +92,7 @@ if (empty($_SESSION['csrf_token'])) {
             <span class="glyphicon glyphicon-flag"></span> <?php echo htmlspecialchars($team['name']); ?>
         </h1>
         <p class="team-description">Team Leader Dashboard</p>
+        <img src="../assets/images/programmers-team.png" alt="programmers team">
     </div>
 
     <div class="row">

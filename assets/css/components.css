@@ -185,6 +185,7 @@
 .th-navbar__action.is-active {
     background: rgba(255, 255, 255, 0.12);
     border-color: transparent;
+    text-decoration: none;
 }
 
 .th-navbar__action--primary {
@@ -195,6 +196,7 @@
 .th-navbar__action--primary:hover {
     transform: translateY(-2px);
     box-shadow: var(--shadow-sm);
+    text-decoration: none;
 }
 
 .th-navbar--auth .th-navbar__action--primary {

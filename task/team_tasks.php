@@ -74,6 +74,7 @@ if ($tasks) {
     <link rel="stylesheet" href="../assets/css/components.css">
     <link rel="stylesheet" href="../assets/css/pages/task.css">
     <link rel="stylesheet" href="../assets/css/pages/team.css">
+    <script src="../assets/js/main.js"></script>
 </head>
 <body class="page-body">
 <?php render_unified_navbar(th_nav_template('user', [

@@ -90,7 +90,11 @@ $versions_result = $versions_stmt->get_result();
                     <?php 
                         $file_name = basename($version['file_path']);
                         $file_ext = strtolower(pathinfo($file_name, PATHINFO_EXTENSION));
-                        $file_size = file_exists($version['file_path']) ? filesize($version['file_path']) : 0;
+                        // Build absolute path properly for Windows/XAMPP
+                        $relative_path = str_replace('../', '', $version['file_path']);
+                        $abs_file_path = __DIR__ . '/../' . $relative_path;
+                        $file_exists = file_exists($abs_file_path);
+                        $file_size = $file_exists ? filesize($abs_file_path) : 0;
                         $is_latest = $version['is_latest'];
                     ?>
                     <div class="version-card <?php echo $is_latest ? 'latest' : ''; ?> animate-fadeInUp">
@@ -120,7 +124,7 @@ $versions_result = $versions_stmt->get_result();
                                         <strong>File:</strong> 
                                         <?php echo htmlspecialchars($file_name); ?>
                                         <span class="label label-default" style="border-radius: 8px;">.<?php echo strtoupper($file_ext); ?></span>
-                                        <span style="color: var(--gray-500);">(<?php echo round($file_size / 1024, 2); ?> KB)</span>
+                                        <span style="color: var(--gray-500);">(<?php echo $file_exists ? round($file_size / 1024, 2) . ' KB' : 'File missing'; ?>)</span>
                                     </p>
                                     <?php if ($version['comments']): ?>
                                         <p>

@@ -75,6 +75,7 @@ $stmt->close();
     <link rel="stylesheet" href="../assets/css/main.css">
     <link rel="stylesheet" href="../assets/css/components.css">
     <link rel="stylesheet" href="../assets/css/pages/task.css">
+    <script src="../assets/js/main.js"></script>
 </head>
 <body class="page-body">
 <?php render_unified_navbar(th_nav_template('user', [
@@ -148,7 +149,7 @@ $stmt->close();
                     </button>
                     
                     <div class="form-footer-link">
-                        <a href="team_details.php?id=<?php echo $team_id; ?>">
+                        <a href="../team/team_details.php?id=<?php echo $team_id; ?>">
                             <span class="glyphicon glyphicon-arrow-left"></span> Cancel
                         </a>
                     </div>

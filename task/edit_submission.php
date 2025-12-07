@@ -86,11 +86,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 if ($_FILES["submission_file"]["size"] > $max_size) {
                     $error = "File size exceeds limit.";
                 } else {
-                    // Delete old file
-                    if (file_exists($submission['file_path'])) {
-                        unlink($submission['file_path']);
-                    }
-                    
                     // Upload new file
                     $filename = time() . "_" . uniqid() . "_" . basename($_FILES["submission_file"]["name"]);
                     $target_file = $target_dir . $filename;
