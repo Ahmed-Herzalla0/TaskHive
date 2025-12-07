@@ -1,0 +1,778 @@
+/* ========================================
+   TASK PAGES STYLES
+   ======================================== */
+
+/* Task Card */
+.task-card {
+    background: white;
+    border-radius: var(--radius-2xl);
+    padding: 48px;
+    box-shadow: var(--shadow-xl);
+    margin-bottom: 20px;
+}
+
+.task-card.task-card-compact {
+    padding: 24px;
+}
+
+/* Task Header */
+.task-header {
+    text-align: center;
+    margin-bottom: 32px;
+}
+
+.task-header .logo-icon {
+    width: 70px;
+    height: 70px;
+    background: linear-gradient(135deg, var(--info) 0%, #0284c7 100%);
+    border-radius: var(--radius-lg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+    color: white;
+    margin: 0 auto 16px;
+    box-shadow: 0 10px 30px rgba(14, 165, 233, 0.3);
+}
+
+.task-header h2 {
+    color: var(--gray-900);
+    margin: 0 0 8px 0;
+    font-size: 26px;
+    font-weight: 700;
+}
+
+.task-header p {
+    color: var(--gray-500);
+    margin: 0;
+}
+
+/* Task Team Badge */
+.task-team-badge {
+    display: inline-block;
+    background: var(--primary-gradient);
+    color: white;
+    padding: 8px 20px;
+    border-radius: var(--radius-full);
+    font-size: 13px;
+    font-weight: 600;
+    margin-top: 12px;
+}
+
+/* Task Container */
+.edit-task-container,
+.create-task-container {
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Task List Item */
+.task-list-item {
+    background: white;
+    padding: 24px;
+    border-radius: var(--radius-lg);
+    margin-bottom: 16px;
+    border-left: 5px solid var(--primary);
+    box-shadow: var(--shadow);
+    transition: all var(--transition);
+}
+
+.task-list-item:hover {
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-2px);
+}
+
+.task-list-item.pending {
+    border-left-color: var(--warning);
+}
+
+.task-list-item.submitted {
+    border-left-color: var(--info);
+}
+
+.task-list-item.approved {
+    border-left-color: var(--success);
+}
+
+.task-list-item.rejected {
+    border-left-color: var(--danger);
+}
+
+.task-list-item h4 {
+    margin-top: 0;
+    margin-bottom: 10px;
+    color: var(--gray-900);
+    font-weight: 600;
+}
+
+.task-list-item .task-description {
+    color: var(--gray-600);
+    margin-bottom: 0;
+}
+
+.task-list-item .task-date {
+    color: var(--gray-500);
+    font-size: 13px;
+}
+
+/* Task Actions */
+.task-actions {
+    margin-top: 20px;
+    padding-top: 16px;
+    border-top: 1px solid var(--gray-200);
+    text-align: right;
+}
+
+.task-actions .btn {
+    margin-left: 8px;
+    border-radius: var(--radius);
+}
+
+/* Submission Upload Area */
+.upload-area {
+    border: 2px dashed var(--gray-300);
+    border-radius: var(--radius-xl);
+    padding: 40px;
+    text-align: center;
+    transition: all var(--transition);
+    background: var(--gray-50);
+    cursor: pointer;
+}
+
+.upload-area:hover,
+.upload-area.dragover {
+    border-color: var(--primary);
+    background: rgba(99, 102, 241, 0.05);
+}
+
+.upload-area .upload-icon {
+    font-size: 48px;
+    color: var(--gray-400);
+    margin-bottom: 16px;
+}
+
+.upload-area h4 {
+    color: var(--gray-700);
+    margin-bottom: 8px;
+}
+
+.upload-area p {
+    color: var(--gray-500);
+    margin-bottom: 0;
+}
+
+/* File Info Box */
+.file-info-box {
+    background: var(--gray-50);
+    padding: 16px;
+    border-radius: var(--radius-lg);
+    margin-top: 16px;
+    border: 1px solid var(--gray-200);
+}
+
+.file-info-box .file-name {
+    font-weight: 600;
+    color: var(--gray-800);
+}
+
+.file-info-box .file-size {
+    color: var(--gray-500);
+    font-size: 13px;
+}
+
+/* Submission Version Card */
+.version-card {
+    background: white;
+    border-radius: var(--radius-xl);
+    padding: 28px;
+    margin-bottom: 20px;
+    box-shadow: var(--shadow-md);
+    border-left: 4px solid var(--primary);
+    transition: all 0.3s ease;
+}
+
+.version-card:hover {
+    transform: translateX(8px);
+    box-shadow: var(--shadow-lg);
+}
+
+.version-card.latest {
+    border-left-color: var(--success);
+    background: linear-gradient(to right, rgba(16, 185, 129, 0.05) 0%, white 100%);
+}
+
+/* Version Badge */
+.version-badge {
+    display: inline-block;
+    padding: 8px 16px;
+    border-radius: var(--radius-full);
+    font-weight: 700;
+    font-size: 14px;
+}
+
+.version-badge.latest {
+    background: var(--success);
+    color: white;
+}
+
+.version-badge.old {
+    background: var(--gray-400);
+    color: white;
+}
+
+/* Version Info */
+.version-info p {
+    margin-bottom: 10px;
+    color: var(--gray-600);
+}
+
+.version-info strong {
+    color: var(--gray-700);
+}
+
+/* Version Actions */
+.version-actions {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+/* View Submission Page */
+.submission-view-header {
+    background: var(--primary-gradient);
+    padding: 40px 0;
+    color: white;
+    margin-bottom: 30px;
+}
+
+.submission-view-header h2 {
+    margin: 0;
+    color: white;
+}
+
+.submission-view-header p {
+    opacity: 0.9;
+    margin: 8px 0 0;
+}
+
+/* Code View Container */
+.code-view-container {
+    background: #1e1e2e;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    margin-bottom: 24px;
+}
+
+.code-view-header {
+    background: #181825;
+    padding: 12px 20px;
+    border-bottom: 1px solid #313244;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.code-view-header .file-info {
+    color: #cdd6f4;
+    font-size: 14px;
+}
+
+.code-view-header .copy-code-btn {
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    color: #cdd6f4;
+    padding: 6px 12px;
+    border-radius: var(--radius);
+    cursor: pointer;
+    transition: all var(--transition);
+}
+
+.code-view-header .copy-code-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.code-view-body {
+    padding: 20px;
+    overflow-x: auto;
+}
+
+.code-view-body pre {
+    margin: 0;
+    color: #cdd6f4;
+    font-family: 'Fira Code', 'Monaco', 'Consolas', monospace;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+/* File Type Icons */
+.file-type-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: var(--radius);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    color: white;
+}
+
+.file-type-icon.archive {
+    background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+}
+
+.file-type-icon.document {
+    background: linear-gradient(135deg, #ef4444, #dc2626);
+}
+
+.file-type-icon.image {
+    background: linear-gradient(135deg, #10b981, #059669);
+}
+
+.file-type-icon.code {
+    background: linear-gradient(135deg, #3b82f6, #2563eb);
+}
+
+/* History Header */
+.history-header {
+    background: var(--primary-gradient);
+    padding: 40px 0;
+    color: white;
+    margin-bottom: 30px;
+}
+
+.history-header h2 {
+    margin: 0;
+    color: white;
+}
+
+.history-header p {
+    opacity: 0.9;
+    margin: 8px 0 0;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .task-card {
+        padding: 30px 20px;
+    }
+    
+    .edit-task-container,
+    .create-task-container {
+        padding: 15px;
+    }
+    
+    .version-actions {
+        justify-content: flex-start;
+        margin-top: 16px;
+    }
+    
+    .upload-area {
+        padding: 30px 20px;
+    }
+}
+
+/* Page Header Gradient */
+.page-header-gradient {
+    background: var(--primary-gradient);
+    color: white;
+    padding: 40px 0;
+    margin-bottom: 40px;
+}
+
+.page-header-gradient h1 {
+    color: white;
+    margin: 0;
+}
+
+.page-header-gradient .page-header-subtitle {
+    opacity: 0.9;
+    margin-top: 8px;
+}
+
+/* Form Card */
+.form-card {
+    background: white;
+    border-radius: var(--radius-xl);
+    padding: 40px;
+    box-shadow: var(--shadow-lg);
+}
+
+.form-card .form-group label {
+    font-weight: 600;
+    color: var(--gray-700);
+    margin-bottom: 8px;
+}
+
+/* Form Submit Button */
+.form-submit-btn {
+    margin-top: 16px;
+}
+
+/* Form Footer Link */
+.form-footer-link {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.form-footer-link a {
+    color: var(--gray-500);
+}
+
+/* Back Container */
+.back-container {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 24px;
+}
+
+/* Character Counter */
+.char-counter {
+    text-align: right;
+    font-size: 12px;
+    color: var(--gray-400);
+    margin-top: 6px;
+}
+
+/* Team Header Member View */
+.team-header-member {
+    background: linear-gradient(135deg, var(--success) 0%, #059669 100%);
+    color: white;
+    padding: 50px;
+    border-radius: var(--radius-xl);
+    margin-bottom: 30px;
+    position: relative;
+    overflow: hidden;
+}
+
+.team-header-member::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -10%;
+    width: 300px;
+    height: 300px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+}
+
+.team-header-member h1 {
+    margin: 0;
+    color: white;
+    position: relative;
+}
+
+/* Task Card Extended */
+.task-card {
+    background: white;
+    border-radius: var(--radius-lg);
+    padding: 28px;
+    margin-bottom: 24px;
+    border-left: 5px solid var(--success);
+    box-shadow: var(--shadow);
+    transition: all var(--transition);
+}
+
+.task-card#width-450 {
+    width: 450px;
+}
+
+.task-card:hover {
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-3px);
+}
+
+.task-card.pending { border-left-color: var(--warning); }
+.task-card.submitted { border-left-color: var(--info); }
+.task-card.approved { border-left-color: var(--success); }
+.task-card.rejected { border-left-color: var(--danger); }
+
+/* Upload Section */
+.upload-section {
+    background: var(--gray-50);
+    border-radius: var(--radius-lg);
+    padding: 24px;
+    margin-top: 20px;
+}
+
+/* Submission Header */
+.submission-header {
+    background: var(--primary-gradient);
+    color: white;
+    padding: 40px 0;
+    margin-bottom: 30px;
+}
+
+.submission-header h2 {
+    color: white;
+    margin: 0 0 8px 0;
+}
+
+.submission-header p {
+    opacity: 0.9;
+    margin: 0;
+}
+
+/* File Info Card */
+.file-info {
+    background: white;
+    border-radius: var(--radius-xl);
+    padding: 28px;
+    margin-bottom: 24px;
+    box-shadow: var(--shadow);
+}
+
+.file-info h4 {
+    color: var(--gray-800);
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Code Viewer */
+.code-viewer {
+    background: #1e1e1e;
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    box-shadow: var(--shadow-xl);
+}
+
+.code-header {
+    background: #2d2d2d;
+    padding: 16px 24px;
+    border-bottom: 1px solid #404040;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.code-title {
+    color: #fff;
+    font-weight: 600;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.code-content {
+    padding: 0;
+    margin: 0;
+    max-height: 600px;
+    overflow-y: auto;
+}
+
+.code-content pre {
+    margin: 0;
+    padding: 24px;
+    background: #1e1e1e;
+    border-radius: 0;
+}
+
+.code-content code {
+    font-size: 14px;
+    line-height: 1.7;
+    font-family: 'Consolas', 'Monaco', monospace;
+}
+
+/* Download Zone */
+.download-zone {
+    background: white;
+    border-radius: var(--radius-xl);
+    padding: 60px 40px;
+    text-align: center;
+    box-shadow: var(--shadow);
+}
+
+.file-icon {
+    font-size: 80px;
+    color: var(--primary);
+    margin-bottom: 24px;
+}
+
+/* Info Badge */
+.info-badge {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: var(--radius-full);
+    font-size: 12px;
+    font-weight: 600;
+    background: var(--gray-100);
+    color: var(--gray-700);
+}
+
+/* ========================================
+   SUBMISSION HISTORY PAGE
+   ======================================== */
+
+/* History Header */
+.history-header {
+    background: var(--primary-gradient);
+    color: white;
+    padding: 48px 0;
+    margin-bottom: 40px;
+    box-shadow: var(--shadow-lg);
+}
+
+.history-header h2 {
+    font-weight: 800;
+    margin: 0 0 8px 0;
+    font-size: 32px;
+    color: white;
+}
+
+.history-header p {
+    margin: 0;
+    opacity: 0.9;
+    font-size: 16px;
+}
+
+/* ========================================
+   EDIT SUBMISSION PAGE
+   ======================================== */
+
+/* Edit Container */
+.edit-container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+/* Edit Card */
+.edit-card {
+    background: white;
+    border-radius: var(--radius-2xl);
+    padding: 48px;
+    box-shadow: var(--shadow-2xl);
+}
+
+/* Edit Header */
+.edit-header {
+    text-align: center;
+    margin-bottom: 32px;
+    padding-bottom: 24px;
+    border-bottom: 2px solid var(--gray-100);
+}
+
+.edit-header h2 {
+    color: var(--gray-900);
+    margin: 0 0 12px 0;
+    font-weight: 800;
+}
+
+/* Current File Box */
+.current-file {
+    background: var(--gray-50);
+    padding: 24px;
+    border-radius: var(--radius-lg);
+    margin-bottom: 24px;
+    border-left: 4px solid var(--primary);
+}
+
+.current-file h4 {
+    color: var(--gray-800);
+    font-weight: 700;
+    margin-top: 0;
+}
+
+/* File Preview Drop Zone */
+.file-preview {
+    background: white;
+    border: 2px dashed var(--gray-200);
+    border-radius: var(--radius-xl);
+    padding: 40px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.file-preview:hover {
+    border-color: var(--primary);
+    background: rgba(99, 102, 241, 0.03);
+}
+
+.file-preview.active {
+    border-color: var(--success);
+    background: rgba(16, 185, 129, 0.05);
+}
+
+/* Back Ghost Button */
+.btn-back-ghost {
+    background: rgba(255,255,255,0.2);
+    color: white;
+    border: 2px solid rgba(255,255,255,0.3);
+    padding: 12px 24px;
+    border-radius: var(--radius-lg);
+    font-weight: 600;
+    transition: all 0.3s ease;
+    display: inline-block;
+    text-decoration: none;
+}
+
+.btn-back-ghost:hover {
+    background: white;
+    color: var(--primary);
+    border-color: white;
+    text-decoration: none;
+}
+
+/* Comment Box */
+.comment-box {
+    background: var(--gray-50);
+    padding: 16px 20px;
+    border-radius: var(--radius);
+    border-left: 4px solid var(--primary);
+    margin-top: 16px;
+}
+
+/* Edit Submission Page */
+.edit-submission-page {
+    background: var(--primary-gradient);
+    min-height: 100vh;
+    padding: 40px 0;
+}
+
+/* Custom File Input */
+input[type="file"].form-control {
+    padding: 10px 12px;
+    height: auto;
+    line-height: 1.5;
+    background: white;
+    border: 2px dashed var(--gray-300);
+    border-radius: var(--radius-lg);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+input[type="file"].form-control:hover {
+    border-color: var(--primary);
+    background: var(--gray-50);
+}
+
+input[type="file"].form-control:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+    outline: none;
+}
+
+input[type="file"].form-control::file-selector-button {
+    background: var(--primary-gradient);
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: var(--radius);
+    font-weight: 600;
+    cursor: pointer;
+    margin-right: 12px;
+    transition: all 0.3s ease;
+}
+
+input[type="file"].form-control::file-selector-button:hover {
+    background: var(--primary-dark);
+    transform: scale(1.02);
+}

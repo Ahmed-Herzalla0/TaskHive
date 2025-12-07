@@ -1,0 +1,692 @@
+/* ==========================================
+   TaskHive User Dashboard Styles
+   Modern UI Update
+   ========================================== */
+
+/* ==========================================
+   1. CSS VARIABLES
+   ========================================== */
+:root {
+    --primary: #6366f1;
+    --primary-dark: #4f46e5;
+    --primary-light: #818cf8;
+    --primary-gradient: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+    --secondary: #0ea5e9;
+    --success: #10b981;
+    --danger: #ef4444;
+    --warning: #f59e0b;
+    --info: #06b6d4;
+    --gray-50: #f8fafc;
+    --gray-100: #f1f5f9;
+    --gray-200: #e2e8f0;
+    --gray-300: #cbd5e1;
+    --gray-400: #94a3b8;
+    --gray-500: #64748b;
+    --gray-600: #475569;
+    --gray-700: #334155;
+    --gray-800: #1e293b;
+    --gray-900: #0f172a;
+    --white: #ffffff;
+    --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+    --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+    --radius: 10px;
+    --radius-lg: 16px;
+    --radius-xl: 20px;
+    --transition: 200ms ease;
+}
+
+/* ==========================================
+   2. GENERAL
+   ========================================== */
+body {
+    background: var(--gray-50);
+    font-family: 'Inter', 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+/* ==========================================
+   3. HAMBURGER MENU
+   ========================================== */
+.navbar-toggle {
+    border: 2px solid rgba(255, 255, 255, 0.5) !important;
+    border-radius: var(--radius);
+    margin-top: 12px;
+    padding: 9px 10px;
+    background: transparent;
+    transition: var(--transition);
+}
+
+.navbar-toggle:hover,
+.navbar-toggle:focus {
+    background: rgba(255, 255, 255, 0.15) !important;
+    border-color: white !important;
+}
+
+.navbar-toggle .icon-bar {
+    background-color: white !important;
+    width: 22px;
+    height: 2px;
+    border-radius: 2px;
+}
+
+.navbar-toggle .icon-bar + .icon-bar {
+    margin-top: 5px;
+}
+
+@media (min-width: 768px) {
+    .navbar-toggle {
+        display: none;
+    }
+}
+
+@media (max-width: 767px) {
+    .navbar-header {
+        float: none;
+    }
+    
+    .navbar-toggle {
+        display: block;
+        float: right;
+    }
+    
+    .navbar-collapse {
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        background: var(--primary-gradient);
+        box-shadow: var(--shadow-lg);
+        border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+    }
+    
+    .navbar-collapse.collapse {
+        display: none !important;
+    }
+    
+    .navbar-collapse.collapse.in {
+        display: block !important;
+    }
+    
+    .navbar-nav {
+        float: none !important;
+        margin: 10px 0;
+    }
+    
+    .navbar-nav > li {
+        float: none;
+    }
+    
+    .navbar-nav > li > a {
+        padding: 15px 20px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .navbar-brand {
+        font-size: 18px !important;
+    }
+}
+
+/* ==========================================
+   4. DASHBOARD WELCOME
+   ========================================== */
+.dashboard-welcome {
+    background: var(--primary-gradient);
+    color: white;
+    border-radius: var(--radius-xl);
+    padding: 40px;
+    margin-bottom: 30px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 10px 40px rgba(99, 102, 241, 0.3);
+}
+
+.dashboard-welcome::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -10%;
+    width: 300px;
+    height: 300px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+}
+
+.dashboard-welcome::after {
+    content: '';
+    position: absolute;
+    bottom: -30%;
+    left: -5%;
+    width: 200px;
+    height: 200px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 50%;
+}
+
+.dashboard-welcome h2 {
+    color: white;
+    font-size: 28px;
+    font-weight: 700;
+    margin: 0 0 8px 0;
+    position: relative;
+    z-index: 1;
+}
+
+.dashboard-welcome p {
+    opacity: 0.9;
+    margin: 0;
+    position: relative;
+    z-index: 1;
+    font-size: 16px;
+}
+
+/* ==========================================
+   5. QUICK ACTIONS
+   ========================================== */
+.quick-actions {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-bottom: 30px;
+}
+
+.quick-actions .btn {
+    flex: 1;
+    min-width: 200px;
+    padding: 16px 24px;
+    font-weight: 600;
+    border-radius: var(--radius);
+    transition: var(--transition);
+}
+
+.quick-actions .btn:hover {
+    transform: translateY(-3px);
+}
+
+.quick-actions .btn-success {
+    background: linear-gradient(135deg, var(--success) 0%, #059669 100%);
+    border: none;
+    box-shadow: 0 4px 15px rgba(16, 185, 129, 0.35);
+}
+
+.quick-actions .btn-primary {
+    background: var(--primary-gradient);
+    border: none;
+    box-shadow: 0 4px 15px rgba(99, 102, 241, 0.35);
+}
+
+/* ==========================================
+   6. CARDS
+   ========================================== */
+.card {
+    background: white;
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    transition: var(--transition);
+    border: 1px solid var(--gray-100);
+}
+
+.card:hover {
+    box-shadow: var(--shadow-lg);
+}
+
+.card-header {
+    background: var(--gray-50);
+    padding: 20px 28px;
+    border-bottom: 1px solid var(--gray-200);
+}
+
+.card-header h3 {
+    margin: 0;
+    font-weight: 700;
+    color: var(--gray-900);
+    font-size: 18px;
+}
+
+.card-body {
+    padding: 28px;
+}
+
+/* ==========================================
+   7. DASHBOARD CARD (Legacy)
+   ========================================== */
+.dashboard-card {
+    background: white;
+    border-radius: var(--radius-xl);
+    padding: 28px;
+    margin-bottom: 25px;
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+    border: 1px solid var(--gray-100);
+}
+
+.dashboard-card:hover {
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-4px);
+}
+
+/* ==========================================
+   8. TASK CARD
+   ========================================== */
+.task-card {
+    background: white;
+    border-radius: var(--radius-lg);
+    padding: 24px;
+    margin-bottom: 20px;
+    border-left: 4px solid var(--primary);
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+}
+
+.task-card:hover {
+    transform: translateX(5px);
+    box-shadow: var(--shadow-lg);
+}
+
+.task-card.submitted { border-left-color: var(--info); }
+.task-card.approved { border-left-color: var(--success); }
+.task-card.rejected { border-left-color: var(--danger); }
+.task-card.pending { border-left-color: var(--warning); }
+
+.task-card h4 {
+    margin: 0 0 12px 0;
+    color: var(--gray-900);
+    font-weight: 600;
+}
+
+/* ==========================================
+   9. TEAM CARD
+   ========================================== */
+.team-card {
+    background: white;
+    border-radius: var(--radius-xl);
+    padding: 28px;
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+    margin-bottom: 24px;
+    border: 1px solid var(--gray-100);
+    position: relative;
+    overflow: hidden;
+}
+
+.team-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, transparent 50%, rgba(99, 102, 241, 0.03) 50%);
+}
+
+.team-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-xl);
+}
+
+.team-card h4 {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin: 0 0 16px 0;
+    color: var(--gray-900);
+    font-weight: 700;
+}
+
+.team-card .team-icon {
+    width: 48px;
+    height: 48px;
+    background: var(--primary-gradient);
+    border-radius: var(--radius);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 20px;
+    box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+}
+
+/* ==========================================
+   10. AVATARS
+   ========================================== */
+.avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--primary-gradient);
+    color: white;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 14px;
+    box-shadow: var(--shadow);
+}
+
+.avatar-sm { width: 32px; height: 32px; font-size: 12px; }
+.avatar-lg { width: 56px; height: 56px; font-size: 20px; }
+
+.avatar-group {
+    display: flex;
+}
+
+.avatar-group .avatar {
+    margin-left: -10px;
+    border: 3px solid white;
+}
+
+.avatar-group .avatar:first-child {
+    margin-left: 0;
+}
+
+.member-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--primary-gradient);
+    color: white;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    margin-right: 8px;
+    font-size: 14px;
+    box-shadow: var(--shadow);
+}
+
+/* ==========================================
+   11. PROFILE PREVIEW
+   ========================================== */
+.profile-preview {
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    margin: 0 auto 24px;
+    background: var(--primary-gradient);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 64px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: var(--transition);
+    overflow: visible;
+    position: relative;
+    box-shadow: 0 10px 40px rgba(99, 102, 241, 0.3);
+}
+
+.profile-preview:hover {
+    transform: scale(1.05);
+    box-shadow: 0 15px 50px rgba(99, 102, 241, 0.4);
+}
+
+.profile-preview img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.camera-icon {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    background: white;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--primary);
+    font-size: 20px;
+    box-shadow: var(--shadow-md);
+    border: 3px solid white;
+    transition: var(--transition);
+}
+
+.profile-preview:hover .camera-icon {
+    transform: scale(1.1);
+    background: var(--primary);
+    color: white;
+}
+
+/* ==========================================
+   12. FORM SECTION
+   ========================================== */
+.form-section {
+    background: var(--gray-50);
+    padding: 28px;
+    border-radius: var(--radius-lg);
+    margin-bottom: 25px;
+    border: 1px solid var(--gray-200);
+}
+
+.form-section h4 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    color: var(--primary);
+    font-weight: 600;
+}
+
+/* ==========================================
+   13. PROFILE CONTAINER
+   ========================================== */
+.profile-container {
+    background: white;
+    border-radius: var(--radius-xl);
+    padding: 48px;
+    box-shadow: var(--shadow);
+    margin-top: 30px;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.profile-header {
+    text-align: center;
+    margin-bottom: 40px;
+    padding-bottom: 24px;
+    border-bottom: 2px solid var(--primary);
+}
+
+/* ==========================================
+   14. SUBMISSION ITEM
+   ========================================== */
+.submission-item {
+    background: var(--gray-50);
+    padding: 18px;
+    border-radius: var(--radius);
+    margin-bottom: 12px;
+    border-left: 4px solid var(--primary);
+    transition: var(--transition);
+}
+
+.submission-item:hover {
+    background: var(--gray-100);
+}
+
+/* ==========================================
+   15. CODE VIEWER
+   ========================================== */
+.code-container {
+    background: #1e1e1e;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    margin-top: 20px;
+    box-shadow: var(--shadow-lg);
+}
+
+.code-container pre {
+    margin: 0;
+    padding: 24px;
+    overflow-x: auto;
+    max-height: 600px;
+}
+
+.code-container code {
+    font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+/* ==========================================
+   16. VERSION BADGE
+   ========================================== */
+.version-badge {
+    display: inline-block;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    background: rgba(99, 102, 241, 0.1);
+    color: var(--primary);
+    margin-left: 10px;
+}
+
+/* ==========================================
+   17. HISTORY ITEM
+   ========================================== */
+.history-item {
+    background: white;
+    border-radius: var(--radius);
+    padding: 18px;
+    margin-bottom: 12px;
+    border-left: 4px solid var(--primary);
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+}
+
+.history-item:hover {
+    box-shadow: var(--shadow-md);
+}
+
+.history-item.current {
+    border-left-color: var(--success);
+    background: rgba(16, 185, 129, 0.05);
+}
+
+/* ==========================================
+   18. BADGES
+   ========================================== */
+.badge {
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.badge-primary { background: rgba(99, 102, 241, 0.1); color: var(--primary); }
+.badge-success { background: rgba(16, 185, 129, 0.1); color: var(--success); }
+.badge-warning { background: rgba(245, 158, 11, 0.1); color: var(--warning); }
+.badge-danger { background: rgba(239, 68, 68, 0.1); color: var(--danger); }
+
+/* ==========================================
+   19. EMPTY STATE
+   ========================================== */
+.empty-state {
+    text-align: center;
+    padding: 80px 40px;
+    color: var(--gray-500);
+}
+
+.empty-state .empty-icon {
+    width: 120px;
+    height: 120px;
+    margin: 0 auto 24px;
+    background: var(--gray-100);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 48px;
+    color: var(--gray-400);
+}
+
+.empty-state h3 {
+    font-size: 24px;
+    color: var(--gray-700);
+    margin-bottom: 12px;
+}
+
+.empty-state p {
+    max-width: 400px;
+    margin: 0 auto 24px;
+    font-size: 16px;
+}
+
+/* ==========================================
+   20. ANIMATIONS
+   ========================================== */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-fadeInUp { animation: fadeInUp 0.5s ease; }
+.animate-fadeInDown { animation: fadeInDown 0.5s ease; }
+
+.stagger-animation > * {
+    animation: fadeInUp 0.5s ease both;
+}
+.stagger-animation > *:nth-child(1) { animation-delay: 0.1s; }
+.stagger-animation > *:nth-child(2) { animation-delay: 0.2s; }
+.stagger-animation > *:nth-child(3) { animation-delay: 0.3s; }
+.stagger-animation > *:nth-child(4) { animation-delay: 0.4s; }
+.stagger-animation > *:nth-child(5) { animation-delay: 0.5s; }
+.stagger-animation > *:nth-child(6) { animation-delay: 0.6s; }
+
+/* ==========================================
+   21. RESPONSIVE
+   ========================================== */
+@media (max-width: 767px) {
+    .dashboard-welcome {
+        padding: 30px;
+    }
+    
+    .dashboard-welcome h2 {
+        font-size: 22px;
+    }
+    
+    .quick-actions {
+        flex-direction: column;
+    }
+    
+    .quick-actions .btn {
+        width: 100%;
+    }
+    
+    .team-card {
+        padding: 20px;
+    }
+    
+    .profile-preview {
+        width: 120px;
+        height: 120px;
+        font-size: 48px;
+    }
+    
+    .profile-container {
+        padding: 24px;
+    }
+    
+    .empty-state {
+        padding: 40px 20px;
+    }
+}

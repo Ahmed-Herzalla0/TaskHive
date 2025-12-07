@@ -1,0 +1,37 @@
+# Prevent directory browsing
+Options -Indexes
+
+# Enable rewrite for ngrok
+RewriteEngine On
+
+# Fix ngrok forwarding
+RewriteCond %{HTTP:X-Forwarded-Proto} =https
+RewriteRule .* - [E=HTTPS:on]
+
+# Protect sensitive files
+<FilesMatch "\.(sql|md|log|txt|env|ini|bak)$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+# Protect .env file specifically
+<Files ".env">
+    Order allow,deny
+    Deny from all
+</Files>
+
+# Protect config files
+<Files "db_connect.php">
+    Order allow,deny
+    Deny from all
+</Files>
+
+# Custom error pages
+ErrorDocument 404 /P4U/index.php
+ErrorDocument 403 /P4U/index.php
+
+# Enable rewrite engine for clean URLs (optional)
+# RewriteEngine On
+# RewriteCond %{REQUEST_FILENAME} !-f
+# RewriteCond %{REQUEST_FILENAME} !-d
+# RewriteRule ^(.*)$ index.php [QSA,L]

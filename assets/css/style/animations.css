@@ -1,0 +1,250 @@
+/* ====================================
+   P4U - Enhanced Animations & Effects
+   ==================================== */
+
+/* Additional hover effects for better UX */
+.btn {
+    position: relative;
+    overflow: hidden;
+    transform: translateZ(0);
+}
+
+.btn:active {
+    transform: scale(0.95);
+}
+
+/* Enhanced panel animations */
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.panel {
+    animation: slideDown 0.5s ease-out;
+}
+
+/* Glowing effect for important buttons */
+@keyframes glow {
+    0%, 100% {
+        box-shadow: 0 0 5px rgba(102, 126, 234, 0.5);
+    }
+    50% {
+        box-shadow: 0 0 20px rgba(102, 126, 234, 0.8);
+    }
+}
+
+.btn-primary:hover {
+    animation: glow 2s infinite;
+}
+
+/* Status badge animations */
+.label {
+    transition: all 0.3s ease;
+}
+
+.label:hover {
+    transform: scale(1.1);
+}
+
+/* Task card hover effect */
+.well {
+    position: relative;
+}
+
+.well::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 4px;
+    height: 0;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    transition: height 0.3s ease;
+}
+
+.well:hover::before {
+    height: 100%;
+}
+
+/* Loading dots animation */
+@keyframes loadingDots {
+    0%, 80%, 100% { opacity: 0; }
+    40% { opacity: 1; }
+}
+
+.loading-dots span {
+    animation: loadingDots 1.4s infinite;
+}
+
+.loading-dots span:nth-child(1) {
+    animation-delay: 0s;
+}
+
+.loading-dots span:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.loading-dots span:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+/* Profile picture shimmer effect */
+@keyframes shimmer {
+    0% {
+        background-position: -200% center;
+    }
+    100% {
+        background-position: 200% center;
+    }
+}
+
+.profile-upload-preview:hover {
+    background: linear-gradient(90deg, #667eea 0%, #764ba2 50%, #667eea 100%);
+    background-size: 200% 100%;
+    animation: shimmer 2s infinite;
+}
+
+/* Input focus glow */
+.form-control:focus {
+    animation: inputGlow 0.5s ease-out;
+}
+
+@keyframes inputGlow {
+    0% {
+        box-shadow: 0 0 0 0 rgba(102, 126, 234, 0.4);
+    }
+    100% {
+        box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+    }
+}
+
+/* Success checkmark animation */
+@keyframes checkmark {
+    0% {
+        transform: scale(0) rotate(0deg);
+    }
+    50% {
+        transform: scale(1.2) rotate(180deg);
+    }
+    100% {
+        transform: scale(1) rotate(360deg);
+    }
+}
+
+.alert-success .glyphicon {
+    animation: checkmark 0.6s ease-out;
+}
+
+/* Error shake stronger */
+@keyframes strongShake {
+    0%, 100% { transform: translateX(0); }
+    10%, 30%, 50%, 70%, 90% { transform: translateX(-10px); }
+    20%, 40%, 60%, 80% { transform: translateX(10px); }
+}
+
+.error-shake {
+    animation: strongShake 0.5s;
+}
+
+/* Table row slide in */
+@keyframes rowSlideIn {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.table tbody tr {
+    animation: rowSlideIn 0.3s ease-out;
+}
+
+.table tbody tr:nth-child(1) { animation-delay: 0.05s; }
+.table tbody tr:nth-child(2) { animation-delay: 0.1s; }
+.table tbody tr:nth-child(3) { animation-delay: 0.15s; }
+.table tbody tr:nth-child(4) { animation-delay: 0.2s; }
+.table tbody tr:nth-child(5) { animation-delay: 0.25s; }
+
+/* Navbar slide down */
+@keyframes navSlideDown {
+    from {
+        transform: translateY(-100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.navbar {
+    animation: navSlideDown 0.5s ease-out;
+}
+
+/* Feature box entrance */
+@keyframes featureEntrance {
+    from {
+        opacity: 0;
+        transform: scale(0.8) translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+.feature-box {
+    animation: featureEntrance 0.6s ease-out;
+}
+
+.feature-box:nth-child(1) { animation-delay: 0.1s; }
+.feature-box:nth-child(2) { animation-delay: 0.2s; }
+.feature-box:nth-child(3) { animation-delay: 0.3s; }
+
+/* Gradient text animation */
+@keyframes gradientShift {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+.text-gradient {
+    background-size: 200% auto;
+    animation: gradientShift 3s ease infinite;
+}
+
+/* Ripple effect on click */
+.btn {
+    overflow: hidden;
+    position: relative;
+}
+
+.btn .ripple {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.6);
+    transform: scale(0);
+    animation: rippleEffect 0.6s ease-out;
+}
+
+@keyframes rippleEffect {
+    to {
+        transform: scale(4);
+        opacity: 0;
+    }
+}
