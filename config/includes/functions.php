@@ -15,10 +15,10 @@ function redirect($url) {
 }
 
 function sanitize($conn, $str) {
-    return mysqli_real_escape_string($conn, htmlspecialchars($str));
+    return mysqli_real_escape_string($conn, htmlspecialchars($str)); //الدالة هدفها تنظيف البيانات قبل تخزينها في قاعدة البيانات أو عرضها في الصفحة
 }
 
-function log_activity($conn, $user_id, $action, $details = '') {
+function log_activity($conn, $user_id, $action, $details = ''){ //تسجيل النشاطات
     $ip_address = $_SERVER['REMOTE_ADDR'];
     $stmt = $conn->prepare("INSERT INTO activity_log (user_id, action, details, ip_address) VALUES (?, ?, ?, ?)");
     $stmt->bind_param("isss", $user_id, $action, $details, $ip_address);

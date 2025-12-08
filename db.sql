@@ -83,8 +83,3 @@ CREATE INDEX idx_submissions_task ON submissions(task_id);
 CREATE INDEX idx_submissions_user ON submissions(user_id);
 CREATE INDEX idx_activity_user ON activity_log(user_id);
 CREATE INDEX idx_activity_created ON activity_log(created_at);
-
--- Insert default admin user
--- Username: admin, Password: @AC3b4ci10@
-INSERT INTO users (first_name, last_name, username, email, password, role) VALUES 
-('Admin', 'User', 'admin', 'admin@taskhive.com', '$2y$10$uvhS4oFJ0WbAu0gUiW/3LejJXCKJvbwcqV8vm5zawcr9dNzOws8C2', 'admin');

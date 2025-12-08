@@ -1,11 +1,11 @@
 <?php
 // config/includes/config.php - Configuration
 
-// Base URL
+// Base URL (project lives directly in htdocs)
 $base_url = 'http://localhost';
 
-// Project path
-$project_path = '/TaskHive';
+// No extra project path needed
+$project_path = '';
 
 // Full base URL
 define('BASE_URL', $base_url . $project_path);

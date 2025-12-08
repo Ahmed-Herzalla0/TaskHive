@@ -6,7 +6,7 @@
  */
 
 if (!defined('TASKHIVE_BASE_PATH')) {
-    define('TASKHIVE_BASE_PATH', realpath(__DIR__ . '/..'));
+    define('TASKHIVE_BASE_PATH', realpath(__DIR__ . '/..')); // تعريف المسار الأساسي للتطبيق 
 }
 
 if (!defined('TASKHIVE_ENV_LOADED')) {

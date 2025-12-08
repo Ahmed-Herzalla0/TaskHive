@@ -5,7 +5,7 @@ if (!function_exists('th_nav_template')) {
     function th_nav_template(string $template = 'default', array $overrides = []): array
     {
         $username = isset($_SESSION['username']) ? $_SESSION['username'] : 'Account';
-
+        // نحدد اسم يوزر افتراضي إذا لم يكن المستخدم مسجلاً الدخول
         $templates = [
             'default' => [
                 'brand' => 'TaskHive',
@@ -64,20 +64,19 @@ if (!function_exists('th_nav_template')) {
                 ],
             ],
         ];
-
-        $template = $templates[$template] ?? $templates['default'];
+        $template = $templates[$template] ?? $templates['default']; // إذا طلب المستخدم قالب غير موجود، يتم استخدام القالب الافتراضي
 
         if (isset($overrides['links'])) {
             $template['links'] = $overrides['links'];
             unset($overrides['links']);
         }
-
+        // منسوي reset
         if (isset($overrides['actions'])) {
             $template['actions'] = $overrides['actions'];
             unset($overrides['actions']);
         }
-
-        return array_replace_recursive($template, $overrides);
+        // منسوي reset
+        return array_replace_recursive($template, $overrides); //دمج مصفوفتين مع استبدال القيم المتكررة 
     }
 }
 
@@ -96,16 +95,16 @@ if (!function_exists('render_unified_navbar')) {
             'menu_id' => 'th-nav-' . substr(md5(uniqid('', true)), 0, 8),
         ];
 
-        $config = array_replace_recursive($defaults, $config);
+        $config = array_replace_recursive($defaults, $config); // دمج المصفوفات مع استبدال القيم المتكررة
         $active = $config['active'];
-
+        // تحديد الفئة classes
         $themeClass = 'th-navbar--' . $config['theme'];
         $classes = trim('th-navbar ' . $themeClass . ' ' . $config['class']);
 
         $brand = htmlspecialchars($config['brand'], ENT_QUOTES, 'UTF-8');
         $brandLink = htmlspecialchars($config['brand_link'], ENT_QUOTES, 'UTF-8');
         $brandIcon = $config['brand_icon'];
-
+        
         $linksHtml = '';
         foreach ($config['links'] as $link) {
             $link = array_merge([
