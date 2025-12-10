@@ -339,7 +339,7 @@ function confirmDeleteTask(taskId) {
     }
 }
 
-function confirmRemove(userId, username) {
+function confirmRemove(userId, username) { // kick member
     if (confirm('Are you sure you want to remove ' + username + ' from this team?')) {
         window.location.href = 'remove_member.php?team_id=<?php echo $team_id; ?>&user_id=' + userId + '&token=<?php echo get_csrf_token(); ?>';
     }

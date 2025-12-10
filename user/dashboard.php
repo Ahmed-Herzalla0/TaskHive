@@ -59,6 +59,7 @@ $member_teams_result = $stmt->get_result();
 
 <div class="container main-container">
     <!-- Session Messages -->
+    <!-- عرض رسائل النجاح أو الخطأ من صفحات أخرى -->
     <?php if (isset($_SESSION['message'])): ?>
         <div class="alert alert-<?php echo htmlspecialchars($_SESSION['message_type']); ?> alert-dismissible animate-fadeInDown">
             <button type="button" class="close" data-dismiss="alert">&times;</button>

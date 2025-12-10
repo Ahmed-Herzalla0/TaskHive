@@ -49,18 +49,36 @@ if ($submission['user_id'] != $_SESSION['user_id'] && $leader_id != $_SESSION['u
     die("Access denied. Only the submitter, team leader, or admin can delete this submission.");
 }
 
-// Delete file from server
-if (file_exists($submission['file_path'])) {
-    unlink($submission['file_path']);
+// Get all submissions for this user and task (all versions)
+$all_subs_stmt = $conn->prepare("SELECT id, file_path FROM submissions WHERE task_id = ? AND user_id = ?");
+$all_subs_stmt->bind_param("ii", $submission['task_id'], $submission['user_id']);
+$all_subs_stmt->execute();
+$all_subs_result = $all_subs_stmt->get_result();
+
+$deleted_count = 0;
+$deleted_files = [];
+
+// Delete all files and submissions for this user's task
+while ($sub = $all_subs_result->fetch_assoc()) {
+    // Delete file from server
+    if (file_exists($sub['file_path'])) {
+        unlink($sub['file_path']);
+    }
+    $deleted_files[] = basename($sub['file_path']);
+    
+    // Delete from database
+    $del_stmt = $conn->prepare("DELETE FROM submissions WHERE id = ?");
+    $del_stmt->bind_param("i", $sub['id']);
+    if ($del_stmt->execute()) {
+        $deleted_count++;
+    }
+    $del_stmt->close();
 }
+$all_subs_stmt->close();
 
-// Delete from database
-$stmt = $conn->prepare("DELETE FROM submissions WHERE id = ?");
-$stmt->bind_param("i", $submission_id);
-
-if ($stmt->execute()) {
+if ($deleted_count > 0) {
     log_activity($conn, $_SESSION['user_id'], 'delete_submission', 
-                 "Deleted submission #$submission_id: " . basename($submission['file_path']));
+                 "Deleted $deleted_count submission(s) for task #{$submission['task_id']}: " . implode(', ', $deleted_files));
     
     // Update task status back to pending if needed
     $check_stmt = $conn->prepare("SELECT COUNT(*) as count FROM submissions WHERE task_id = ?");
@@ -78,14 +96,12 @@ if ($stmt->execute()) {
     }
     $check_stmt->close();
     
-    $_SESSION['message'] = "Submission deleted successfully!";
+    $_SESSION['message'] = "All $deleted_count submission(s) deleted successfully!";
     $_SESSION['message_type'] = "success";
 } else {
-    $_SESSION['message'] = "Error deleting submission. Please try again.";
+    $_SESSION['message'] = "Error deleting submissions. Please try again.";
     $_SESSION['message_type'] = "danger";
 }
-
-$stmt->close();
 
 // Get redirect parameter
 $redirect = isset($_GET['redirect']) ? $_GET['redirect'] : 'team_details';
