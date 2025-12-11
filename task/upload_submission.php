@@ -71,20 +71,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         
         // Validate file extension AND mime type
         if (!in_array($file_ext, $allowed_types)) {
-            echo "<div class='container' style='margin-top:50px;'><div class='alert alert-danger' style='padding:20px;'>
-                  <h4><span class='glyphicon glyphicon-remove-circle'></span> نوع الملف غير مسموح!</h4>
-                  <p><strong>الملف:</strong> " . htmlspecialchars($_FILES['submission_file']['name']) . "</p>
-                  <p><strong>الامتداد:</strong> ." . $file_ext . "</p>
-                  <hr>
-                  <p><strong>الملفات المسموحة:</strong></p>
-                  <ul>
-                      <li><strong>Archives:</strong> .zip, .rar, .7z, .tar, .gz</li>
-                      <li><strong>Documents:</strong> .pdf, .doc, .docx, .txt</li>
-                      <li><strong>Code:</strong> .php, .html, .css, .js, .json, .py, .java, .cpp, .c, .sql</li>
-                      <li><strong>Images:</strong> .jpg, .png, .gif</li>
-                  </ul>
-                  </div><a href='../user/dashboard.php' class='btn btn-primary btn-lg'><span class='glyphicon glyphicon-arrow-left'></span> Back to Dashboard</a></div>";
-            exit;
+            // Get team_id for redirect
+            $team_stmt = $conn->prepare("SELECT team_id FROM tasks WHERE id = ?");
+            $team_stmt->bind_param("i", $task_id);
+            $team_stmt->execute();
+            $team_result = $team_stmt->get_result();
+            $team_row = $team_result->fetch_assoc();
+            $team_stmt->close();
+            
+            $_SESSION['message'] = '<strong><span class="glyphicon glyphicon-ban-circle"></span> File Type Not Allowed!</strong><br>The file extension <strong>.' . htmlspecialchars($file_ext) . '</strong> is not allowed. Allowed types: .zip, .rar, .pdf, .doc, .php, .html, .css, .js, .jpg, .png, etc.';
+            $_SESSION['message_type'] = 'danger';
+            
+            $redirect_url = $team_row ? 'team_tasks.php?id=' . $team_row['team_id'] : '../user/dashboard.php';
+            redirect($redirect_url);
         }
         
         // Optional: MIME validation (can be bypassed in some PHP versions)
@@ -98,14 +97,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         
         if ($_FILES["submission_file"]["size"] > $max_size) {
             $file_size_mb = round($_FILES["submission_file"]["size"] / (1024 * 1024), 2);
-            echo "<div class='container' style='margin-top:50px;'><div class='alert alert-danger' style='padding:20px;'>
-                  <h4><span class='glyphicon glyphicon-remove-circle'></span> حجم الملف كبير جداً!</h4>
-                  <p><strong>حجم الملف:</strong> " . $file_size_mb . " MB</p>
-                  <p><strong>الحد الأقصى:</strong> " . $max_size_mb . " MB</p>
-                  <hr>
-                  <p><strong>ملاحظة:</strong> Archives (.zip, .rar) يمكن أن تصل إلى 50MB، والملفات الأخرى حتى 10MB</p>
-                  </div><a href='../user/dashboard.php' class='btn btn-primary btn-lg'><span class='glyphicon glyphicon-arrow-left'></span> Back to Dashboard</a></div>";
-            exit;
+            
+            // Get team_id for redirect
+            $team_stmt = $conn->prepare("SELECT team_id FROM tasks WHERE id = ?");
+            $team_stmt->bind_param("i", $task_id);
+            $team_stmt->execute();
+            $team_result = $team_stmt->get_result();
+            $team_row = $team_result->fetch_assoc();
+            $team_stmt->close();
+            
+            $_SESSION['message'] = '<strong><span class="glyphicon glyphicon-warning-sign"></span> File Too Large!</strong><br>Your file is <strong>' . $file_size_mb . ' MB</strong>, maximum allowed is <strong>' . $max_size_mb . ' MB</strong>.';
+            $_SESSION['message_type'] = 'danger';
+            
+            $redirect_url = $team_row ? 'team_tasks.php?id=' . $team_row['team_id'] : '../user/dashboard.php';
+            redirect($redirect_url);
         }
         
         $filename = time() . "_" . uniqid() . "_" . basename($_FILES["submission_file"]["name"]);

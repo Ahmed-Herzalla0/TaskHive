@@ -49,38 +49,74 @@ if ($submission['user_id'] != $_SESSION['user_id'] && $leader_id != $_SESSION['u
     die("Access denied. Only the submitter, team leader, or admin can delete this submission.");
 }
 
-// Get all submissions for this user and task (all versions)
-$all_subs_stmt = $conn->prepare("SELECT id, file_path FROM submissions WHERE task_id = ? AND user_id = ?");
-$all_subs_stmt->bind_param("ii", $submission['task_id'], $submission['user_id']);
-$all_subs_stmt->execute();
-$all_subs_result = $all_subs_stmt->get_result();
+// Check if we should delete all versions or just this one
+$delete_all = isset($_GET['delete_all']) && $_GET['delete_all'] == '1';
 
 $deleted_count = 0;
 $deleted_files = [];
 
-// Delete all files and submissions for this user's task
-while ($sub = $all_subs_result->fetch_assoc()) {
-    // Delete file from server
-    if (file_exists($sub['file_path'])) {
-        unlink($sub['file_path']);
+if ($delete_all) {
+    // Delete ALL versions for this user and task
+    $all_subs_stmt = $conn->prepare("SELECT id, file_path FROM submissions WHERE task_id = ? AND user_id = ?");
+    $all_subs_stmt->bind_param("ii", $submission['task_id'], $submission['user_id']);
+    $all_subs_stmt->execute();
+    $all_subs_result = $all_subs_stmt->get_result();
+
+    while ($sub = $all_subs_result->fetch_assoc()) {
+        // Delete file from server
+        if (file_exists($sub['file_path'])) {
+            unlink($sub['file_path']);
+        }
+        $deleted_files[] = basename($sub['file_path']);
+        
+        // Delete from database
+        $del_stmt = $conn->prepare("DELETE FROM submissions WHERE id = ?");
+        $del_stmt->bind_param("i", $sub['id']);
+        if ($del_stmt->execute()) {
+            $deleted_count++;
+        }
+        $del_stmt->close();
     }
-    $deleted_files[] = basename($sub['file_path']);
+    $all_subs_stmt->close();
+} else {
+    // Delete ONLY this specific version
+    // Delete file from server
+    if (file_exists($submission['file_path'])) {
+        unlink($submission['file_path']);
+    }
+    $deleted_files[] = basename($submission['file_path']);
     
     // Delete from database
     $del_stmt = $conn->prepare("DELETE FROM submissions WHERE id = ?");
-    $del_stmt->bind_param("i", $sub['id']);
+    $del_stmt->bind_param("i", $submission_id);
     if ($del_stmt->execute()) {
-        $deleted_count++;
+        $deleted_count = 1;
+        
+        // Check if there are other versions and set the latest one
+        $other_stmt = $conn->prepare("SELECT id FROM submissions WHERE task_id = ? AND user_id = ? ORDER BY submitted_at DESC LIMIT 1");
+        $other_stmt->bind_param("ii", $submission['task_id'], $submission['user_id']);
+        $other_stmt->execute();
+        $other_result = $other_stmt->get_result();
+        
+        if ($other_result->num_rows > 0) {
+            $latest = $other_result->fetch_assoc();
+            // Mark the most recent remaining submission as latest
+            $update_latest = $conn->prepare("UPDATE submissions SET is_latest = TRUE WHERE id = ?");
+            $update_latest->bind_param("i", $latest['id']);
+            $update_latest->execute();
+            $update_latest->close();
+        }
+        $other_stmt->close();
     }
     $del_stmt->close();
 }
-$all_subs_stmt->close();
 
 if ($deleted_count > 0) {
+    $action_type = $delete_all ? "Deleted all $deleted_count submission(s)" : "Deleted 1 submission version";
     log_activity($conn, $_SESSION['user_id'], 'delete_submission', 
-                 "Deleted $deleted_count submission(s) for task #{$submission['task_id']}: " . implode(', ', $deleted_files));
+                 "$action_type for task #{$submission['task_id']}: " . implode(', ', $deleted_files));
     
-    // Update task status back to pending if needed
+    // Update task status back to pending if no submissions left
     $check_stmt = $conn->prepare("SELECT COUNT(*) as count FROM submissions WHERE task_id = ?");
     $check_stmt->bind_param("i", $submission['task_id']);
     $check_stmt->execute();
@@ -96,10 +132,14 @@ if ($deleted_count > 0) {
     }
     $check_stmt->close();
     
-    $_SESSION['message'] = "All $deleted_count submission(s) deleted successfully!";
+    if ($delete_all) {
+        $_SESSION['message'] = "All $deleted_count submission(s) deleted successfully!";
+    } else {
+        $_SESSION['message'] = "Submission version deleted successfully!";
+    }
     $_SESSION['message_type'] = "success";
 } else {
-    $_SESSION['message'] = "Error deleting submissions. Please try again.";
+    $_SESSION['message'] = "Error deleting submission. Please try again.";
     $_SESSION['message_type'] = "danger";
 }
 

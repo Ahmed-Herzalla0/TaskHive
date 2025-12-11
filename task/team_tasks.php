@@ -107,6 +107,14 @@ if ($tasks) {
                         My Tasks <span class="badge badge-primary"><?php echo count($tasks); ?></span>
                     </h3>
                     
+                    <?php if (isset($_SESSION['message'])): ?>
+                    <div class="alert alert-<?php echo $_SESSION['message_type'] ?? 'info'; ?>" style="margin-top: 20px;">
+                        <?php 
+                        echo $_SESSION['message']; 
+                        unset($_SESSION['message'], $_SESSION['message_type']);
+                        ?>
+                    </div>
+                    <?php endif; ?>
                     <?php if (!empty($tasks)): ?>
                         <?php foreach ($tasks as $task): 
                             $status_colors = ['pending' => 'warning', 'submitted' => 'info', 'approved' => 'success', 'rejected' => 'danger'];
@@ -134,7 +142,7 @@ if ($tasks) {
                             <?php if (isset($latest_submissions[$task['id']])):
                                 $sub = $latest_submissions[$task['id']];
                             ?>
-                            <div class="alert alert-success" style="margin-top: 20px;">
+                            <div class="alert alert-success alert-permanent" style="margin-top: 20px;">
                                 <strong><span class="glyphicon glyphicon-ok-circle"></span> Submitted!</strong>
                                 <br>You submitted this task on <?php echo date('M d, Y - H:i', strtotime($sub['submitted_at'])); ?>
                                 <div style="margin-top: 15px;">
@@ -153,7 +161,7 @@ if ($tasks) {
                                     <input type="hidden" name="task_id" value="<?php echo $task['id']; ?>">
                                     <div class="row">
                                         <div class="col-md-12">
-                                            <div class="alert alert-info" style="font-size: 13px;">
+                                            <div class="alert alert-info alert-permanent" style="font-size: 13px;">
                                                 <strong><span class="glyphicon glyphicon-info-sign"></span> Allowed File Types:</strong>
                                                 <ul style="margin: 8px 0 0 0; padding-left: 20px;">
                                                     <li><strong>Archives:</strong> .zip, .rar, .7z, .tar, .gz (up to 50MB)</li>

@@ -101,7 +101,7 @@ $language = isset($language_map[$file_ext]) ? $language_map[$file_ext] : 'text';
 <div class="container" style="max-width: 1100px;">
     <div class="row">
         <div class="col-md-12">
-            <a href="../team/team_details.php?id=<?php echo $submission['team_id']; ?>" class="btn btn-secondary btn-rounded">
+            <a href="<?php if($submission['user_id'] == $submission['leader_id']){?>../team/team_details.php?id=<?php echo $submission['team_id']; }else{?>../task/team_tasks.php?id=<?php echo $submission['team_id']; }?>" class="btn btn-secondary btn-rounded">
                 <span class="glyphicon glyphicon-arrow-left"></span> Back to Team
             </a>
             

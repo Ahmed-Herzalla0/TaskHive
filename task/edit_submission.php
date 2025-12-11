@@ -153,6 +153,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $stmt->bind_param("iisss", $submission['task_id'], $submission['user_id'], $new_file_path, $comments, $new_version);
                 
                 if ($stmt->execute()) {
+                    // Get the new submission ID
+                    $new_submission_id = $conn->insert_id;
+                    
                     // Update task status based on who edited
                     if ($is_leader) {
                         // Leader edit - auto approve
@@ -173,6 +176,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         log_activity($conn, $_SESSION['user_id'], 'edit_submission', "Created version $new_version for submission #$submission_id");
                         $success = "Submission updated successfully! (Version $new_version created - Awaiting approval)";
                     }
+                    
+                    // Update the submission_id to the new one so the Back button goes to the new submission
+                    $submission_id = $new_submission_id;
                     
                     // Refresh data
                     $submission['file_path'] = $new_file_path;
