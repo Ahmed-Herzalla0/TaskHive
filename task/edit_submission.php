@@ -1,10 +1,18 @@
 <?php
+// Start output buffering to catch any PHP warnings before they're displayed
+ob_start();
+
 require_once '../config/includes/db_connect.php';
 require_once '../config/includes/functions.php';
 
-// Hide SQL errors from users
+// Hide all errors from users
 error_reporting(0);
+ini_set('display_errors', 0);
 mysqli_report(MYSQLI_REPORT_OFF);
+
+// Clear any buffered warnings (like POST size exceeded)
+ob_end_clean();
+ob_start();
 
 if (!isLoggedIn()) {
     redirect('../auth/login.php');
@@ -39,7 +47,7 @@ $leader_stmt->close();
 
 // Check authorization (submitter, team leader, or admin can edit)
 if ($submission['user_id'] != $_SESSION['user_id'] && $leader_id != $_SESSION['user_id'] && !isAdmin()) {
-    die("Access denied. Only the submitter, team leader, or admin can edit this submission.");
+    die("Access denied. Only the submitter, team leader, and admin, or Member can edit this submission.");
 }
 
 $error = '';
@@ -51,8 +59,16 @@ if (empty($_SESSION['csrf_token'])) {
 }
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    // Check if POST content was too large (this happens when PHP discards the data)
+    $post_max_size = ini_get('post_max_size');
+    $content_length = isset($_SERVER['CONTENT_LENGTH']) ? (int)$_SERVER['CONTENT_LENGTH'] : 0;
+    $max_bytes = (int)$post_max_size * 1024 * 1024; // Convert MB to bytes
+    
+    if ($content_length > $max_bytes) {
+        $error = "File too large! Maximum upload size is " . $post_max_size . ". Please compress your file or upload a smaller one.";
+    }
     // Verify CSRF token
-    if (!isset($_POST['csrf_token']) || $_POST['csrf_token'] !== $_SESSION['csrf_token']) {
+    else if (!isset($_POST['csrf_token']) || $_POST['csrf_token'] !== $_SESSION['csrf_token']) {
         $error = "Invalid request. Please try again.";
     } else {
         $comments = sanitize($conn, trim($_POST['comments']));

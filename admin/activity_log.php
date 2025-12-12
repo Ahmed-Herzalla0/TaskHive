@@ -52,6 +52,7 @@ $activities = $conn->query(
     <link rel="stylesheet" href="../assets/css/main.css">
     <link rel="stylesheet" href="../assets/css/components.css">
     <link rel="stylesheet" href="../assets/css/pages/admin.css">
+    <script src="../assets/js/main.js"></script>
 </head>
 <body class="admin-body">
 <?php render_unified_navbar(th_nav_template('admin', [

@@ -364,13 +364,80 @@
         padding: 15px;
     }
     
-    .version-actions {
-        justify-content: flex-start;
-        margin-top: 16px;
-    }
-    
     .upload-area {
         padding: 30px 20px;
+    }
+    
+    /* Version Card Mobile */
+    .version-card {
+        padding: 20px;
+        padding-bottom: 0;
+    }
+    
+    .version-card .row {
+        display: block !important;
+    }
+    
+    .version-card .col-md-8,
+    .version-card .col-md-4 {
+        width: 100% !important;
+        float: none !important;
+    }
+    
+    .version-info p {
+        font-size: 14px;
+        word-break: break-word;
+        overflow-wrap: break-word;
+    }
+    
+    /* File name wrap on mobile - extends instead of hiding */
+    .version-info .file-name-text {
+        display: block;
+        max-width: 100%;
+        word-break: break-all;
+        overflow-wrap: break-word;
+        white-space: normal;
+        line-height: 1.4;
+        margin: 4px 0;
+    }
+    
+    /* Buttons outside card on mobile */
+    .version-actions {
+        display: flex !important;
+        flex-direction: row !important;
+        justify-content: center !important;
+        gap: 8px !important;
+        margin: 20px -20px 0 -20px !important;
+        padding: 16px 20px !important;
+        background: var(--gray-50);
+        border-top: 1px solid var(--gray-200);
+        border-radius: 0 0 var(--radius-xl) var(--radius-xl);
+        width: calc(100% + 40px);
+    }
+    
+    .version-actions .btn {
+        flex: 1;
+        min-width: 0;
+        padding: 10px 8px !important;
+        font-size: 12px !important;
+        text-align: center;
+    }
+    
+    .version-actions .btn .glyphicon {
+        margin-right: 4px;
+    }
+    
+    /* History Header Mobile */
+    .history-header {
+        padding: 30px 0;
+    }
+    
+    .history-header h2 {
+        font-size: 24px;
+    }
+    
+    .history-header p {
+        font-size: 14px;
     }
 }
 

@@ -720,6 +720,7 @@
 .activity-header h3 {
     font-weight: 700;
     margin: 0 0 8px 0;
+    color: white;
 }
 
 /* Timeline Icon */
@@ -1202,5 +1203,90 @@
     .search-input-group .form-control {
         font-size: 14px;
         padding: 10px 12px;
+    }
+}
+
+/* ========================================
+   ACTIVITY LOG MOBILE RESPONSIVE
+   ======================================== */
+
+@media (max-width: 768px) {
+    /* Activity Container */
+    .activity-container {
+        padding: 16px;
+        margin-top: 16px;
+    }
+    
+    /* Activity Header */
+    .activity-header {
+        padding: 20px;
+        margin: -16px -16px 20px -16px;
+    }
+    
+    .activity-header h3 {
+        font-size: 20px;
+    }
+    
+    /* Activity Item */
+    .activity-item {
+        padding: 16px;
+        margin-bottom: 12px;
+    }
+    
+    .activity-item .row {
+        display: block !important;
+    }
+    
+    .activity-item .col-md-8,
+    .activity-item .col-md-4 {
+        width: 100% !important;
+        float: none !important;
+        display: block !important;
+    }
+    
+    .activity-item .col-md-8 {
+        display: flex !important;
+        align-items: flex-start !important;
+    }
+    
+    .activity-item .col-md-4 {
+        margin-top: 12px;
+        padding-top: 12px;
+        border-top: 1px solid var(--gray-200);
+        text-align: left !important;
+    }
+    
+    /* Timeline Icon */
+    .timeline-icon {
+        width: 40px;
+        height: 40px;
+        font-size: 16px;
+        margin-right: 12px;
+    }
+    
+    /* Activity Content - Text wrap completely */
+    .activity-content {
+        flex: 1;
+        min-width: 0;
+        word-break: break-word;
+        overflow-wrap: break-word;
+    }
+    
+    .activity-content strong {
+        font-size: 14px;
+        display: block;
+        word-break: break-word;
+        overflow-wrap: break-word;
+        white-space: normal;
+        line-height: 1.4;
+    }
+    
+    .activity-content small {
+        display: block;
+        word-break: break-word;
+        overflow-wrap: break-word;
+        white-space: normal;
+        line-height: 1.5;
+        margin-top: 4px;
     }
 }

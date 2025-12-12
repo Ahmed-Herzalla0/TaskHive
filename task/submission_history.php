@@ -121,8 +121,8 @@ $versions_result = $versions_stmt->get_result();
                                     </p>
                                     <p>
                                         <span class="glyphicon glyphicon-file" style="color: var(--primary);"></span>
-                                        <strong>File:</strong> 
-                                        <?php echo htmlspecialchars($file_name); ?>
+                                        <strong>File:</strong><br>
+                                        <span class="file-name-text"><?php echo htmlspecialchars($file_name); ?></span>
                                         <span class="label label-default" style="border-radius: 8px;">.<?php echo strtoupper($file_ext); ?></span>
                                         <span style="color: var(--gray-500);">(<?php echo $file_exists ? round($file_size / 1024, 2) . ' KB' : 'File missing'; ?>)</span>
                                     </p>
@@ -145,7 +145,7 @@ $versions_result = $versions_stmt->get_result();
                                     </a>
                                     <?php if ($version['user_id'] == $_SESSION['user_id'] || $task['leader_id'] == $_SESSION['user_id'] || isAdmin()): ?>
                                         <a href="#" class="btn btn-danger btn-rounded" onclick="if(confirm('Are you sure you want to delete version <?php echo $version['version']; ?>?')) { window.location.href='delete_submission.php?id=<?php echo $version['id']; ?>&redirect=history&task_id=<?php echo $task_id; ?>&user_id=<?php echo $user_id; ?>&token=<?php echo get_csrf_token(); ?>'; } return false;">
-                                            <span class="glyphicon glyphicon-trash"></span>
+                                            <span class="glyphicon glyphicon-trash"></span> Delete
                                         </a>
                                     <?php endif; ?>
                                 </div>

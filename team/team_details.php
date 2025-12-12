@@ -347,7 +347,7 @@ function confirmRemove(userId, username) { // kick member
 
 function confirmDeleteSubmission(submissionId) {
     if (confirm('Are you sure you want to delete this submission?\n\nThis action cannot be undone!\n\nThe file will be permanently deleted.')) {
-        window.location.href = '../task/delete_submission.php?id=' + submissionId + '&token=<?php echo get_csrf_token(); ?>';
+        window.location.href = '../task/delete_submission.php?id=' + submissionId + '&delete_all=1' + '&token=<?php echo get_csrf_token(); ?>';
     }
 }
 </script>
