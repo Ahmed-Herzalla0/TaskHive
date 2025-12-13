@@ -33,7 +33,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['export'])) {
             fputcsv($output, ['ID', 'Task ID', 'User ID', 'User Name', 'File Path', 'Comments', 'Submitted At']);
             $result = $conn->query("SELECT s.id, s.task_id, s.user_id, u.username, s.file_path, s.comments, s.submitted_at FROM submissions s JOIN users u ON s.user_id = u.id");
             break;
-        case 'users':
         default:
             fputcsv($output, ['ID', 'First Name', 'Last Name', 'Username', 'Email', 'Role', 'Created At']);
             $result = $conn->query("SELECT id, first_name, last_name, username, email, role, created_at FROM users");
@@ -66,12 +65,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['export'])) {
 </head>
 <body class="admin-body">
 <?php render_unified_navbar(th_nav_template('admin', [
-        'links' => [
-                ['label' => 'Dashboard', 'href' => 'admin_dashboard.php', 'icon' => 'glyphicon glyphicon-home', 'slug' => 'dashboard'],
-                ['label' => 'Users', 'href' => 'admin.php', 'icon' => 'glyphicon glyphicon-user', 'slug' => 'users'],
-                ['label' => 'Export', 'href' => 'export_data.php', 'icon' => 'glyphicon glyphicon-save', 'slug' => 'export'],
-        ],
-        'active' => 'export',
+    'active' => 'export',
 ])); ?>
 
 <div class="container">
@@ -122,7 +116,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['export'])) {
                 <span class="glyphicon glyphicon-save"></span> Download CSV File
             </button>
             
-            <a href="admin_dashboard.php" class="btn btn-link btn-block" style="margin-top: 15px;">
+            <a href="admin_dashboard.php" class="btn btn-secondary btn-lg btn-rounded btn-block" style="margin-top: 15px;">
                 <span class="glyphicon glyphicon-arrow-left"></span> Back to Dashboard
             </a>
         </form>

@@ -52,6 +52,7 @@ $activities = $conn->query(
             ['label' => 'Tasks', 'href' => 'admin.php?view=tasks', 'icon' => 'glyphicon glyphicon-tasks', 'slug' => 'tasks'],
             ['label' => 'System', 'href' => 'status.php', 'icon' => 'glyphicon glyphicon-cog', 'slug' => 'system'],
             ['label' => 'Activity', 'href' => 'activity_log.php', 'icon' => 'glyphicon glyphicon-time', 'slug' => 'activity'],
+            ['label' => 'Export', 'href' => 'export_data.php', 'icon' => 'glyphicon glyphicon-save', 'slug' => 'export'],
         ],
         'active' => 'activity',
     ])); ?>
