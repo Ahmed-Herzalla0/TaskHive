@@ -11,17 +11,6 @@ if (!isLoggedIn() || !isAdmin()) {
     redirect('../auth/login.php');
 }
 
-// Create activity_log table if not exists
-$conn->query("CREATE TABLE IF NOT EXISTS activity_log (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    user_id INT,
-    action VARCHAR(255) NOT NULL,
-    details TEXT,
-    ip_address VARCHAR(45),
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE SET NULL
-)");
-
 // Get activities (with pagination)
 $page = max(1, (int)($_GET['page'] ?? 1));
 $per_page = 20;
@@ -113,13 +102,34 @@ $activities = $conn->query(
             <!-- Pagination -->
             <?php if ($total_pages > 1): ?>
             <nav style="margin-top: 32px; text-align: center;">
-                <ul class="pagination" style="margin: 0;">
-                    <?php for ($i = 1; $i <= $total_pages; $i++): ?>
-                        <li class="<?php echo $i == $page ? 'active' : ''; ?>">
-                            <a href="?page=<?php echo $i; ?>"><?php echo $i; ?></a>
-                        </li>
-                    <?php endfor; ?>
+                <ul class="pagination" style="margin: 0; display: inline-flex; align-items: center;">
+                    <!-- First & Previous -->
+                    <?php if ($page > 1): ?>
+                        <li><a href="?page=1" title="First">&laquo;&laquo;</a></li>
+                        <li><a href="?page=<?php echo $page - 1; ?>" title="Previous">&laquo;</a></li>
+                    <?php endif; ?>
+                    
+                    <!-- Page Input -->
+                    <li style="padding: 0 10px;">
+                        <form method="GET" style="display: inline-flex; align-items: center; gap: 8px; margin: 0;">
+                            <span style="color: var(--gray-600);">Page</span>
+                            <input type="number" name="page" value="<?php echo $page; ?>" 
+                                   min="1" max="<?php echo $total_pages; ?>" 
+                                   style="width: 70px; padding: 6px 10px; border: 1px solid var(--gray-300); border-radius: var(--radius-md); text-align: center; font-size: 14px;"
+                                   onchange="this.form.submit()">
+                            <span style="color: var(--gray-600);">of <?php echo number_format($total_pages); ?></span>
+                        </form>
+                    </li>
+                    
+                    <!-- Next & Last -->
+                    <?php if ($page < $total_pages): ?>
+                        <li><a href="?page=<?php echo $page + 1; ?>" title="Next">&raquo;</a></li>
+                        <li><a href="?page=<?php echo $total_pages; ?>" title="Last">&raquo;&raquo;</a></li>
+                    <?php endif; ?>
                 </ul>
+                <small style="display: block; margin-top: 10px; color: var(--gray-500);">
+                    <?php echo number_format($total_activities); ?> total logs
+                </small>
             </nav>
             <?php endif; ?>
         <?php else: ?>
