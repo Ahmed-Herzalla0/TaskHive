@@ -53,7 +53,7 @@ if (!function_exists('th_nav_template')) {
                 'theme' => 'admin',
                 'links' => [
                     ['label' => 'Dashboard', 'href' => 'admin_dashboard.php', 'icon' => 'glyphicon glyphicon-home', 'slug' => 'dashboard'],
-                    ['label' => 'Users', 'href' => 'admin.php', 'icon' => 'glyphicon glyphicon-user', 'slug' => 'users'],
+                    ['label' => 'Users', 'href' => 'admin.php?view=users', 'icon' => 'glyphicon glyphicon-user', 'slug' => 'users'],
                     ['label' => 'Teams', 'href' => 'admin.php?view=teams', 'icon' => 'glyphicon glyphicon-flag', 'slug' => 'teams'],
                     ['label' => 'Tasks', 'href' => 'admin.php?view=tasks', 'icon' => 'glyphicon glyphicon-tasks', 'slug' => 'tasks'],
                     ['label' => 'System', 'href' => 'status.php', 'icon' => 'glyphicon glyphicon-cog', 'slug' => 'system'],

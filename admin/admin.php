@@ -23,7 +23,7 @@ if (isset($_GET['delete']) && $view == 'users' && $csrf_valid) {
     $stmt->bind_param("i", $id);
     $stmt->execute();
     $stmt->close();
-    redirect('admin.php');
+    redirect('admin.php?view=users');
 }
 
 // Handle Delete Team

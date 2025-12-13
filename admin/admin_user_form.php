@@ -92,12 +92,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 </head>
 <body class="admin-body">
 <div class="user-form-container">
-    <div class="back-container">
-        <a href="admin.php" class="btn-back-ghost">
-            <span class="glyphicon glyphicon-arrow-left"></span> Back to Admin Panel
-        </a>
-    </div>
-    
+    <div class="back-container"></div>
     <?php if($error): ?>
         <div class="alert alert-danger" style="border-radius: var(--radius-lg); border: none; padding: 16px 20px;">
             <span class="glyphicon glyphicon-exclamation-sign"></span> <?php echo htmlspecialchars($error); ?>
@@ -165,7 +160,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <?php echo $is_edit ? '💾 Update User' : '✨ Create User'; ?>
             </button>
             
-            <a href="admin.php" class="btn btn-secondary btn-lg btn-rounded btn-block" style="padding: 16px; margin-top: 12px;">
+            <a href="admin.php?view=users" class="btn btn-secondary btn-lg btn-rounded btn-block" style="padding: 16px; margin-top: 12px;">
                 <span class="glyphicon glyphicon-arrow-left"></span> Back to Admin Panel
             </a>
         </form>
