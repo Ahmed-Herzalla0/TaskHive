@@ -90,10 +90,9 @@ $versions_result = $versions_stmt->get_result();
                     <?php 
                         $file_name = basename($version['file_path']);
                         $file_ext = strtolower(pathinfo($file_name, PATHINFO_EXTENSION));
-                        // Build absolute path properly for Windows/XAMPP
-                        $relative_path = str_replace('../', '', $version['file_path']);
-                        $abs_file_path = __DIR__ . '/../' . $relative_path;
-                        $file_exists = file_exists($abs_file_path);
+                        // Build absolute path
+                        $abs_file_path = realpath(__DIR__ . '/' . $version['file_path']);
+                        $file_exists = (bool)$abs_file_path;
                         $file_size = $file_exists ? filesize($abs_file_path) : 0;
                         $is_latest = $version['is_latest'];
                     ?>

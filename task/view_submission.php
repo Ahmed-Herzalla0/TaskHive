@@ -41,10 +41,9 @@ if ($submission['leader_id'] != $_SESSION['user_id'] &&
 $file_path = $submission['file_path'];
 $file_name = basename($file_path);
 $file_ext = strtolower(pathinfo($file_name, PATHINFO_EXTENSION));
-// Build absolute path properly for Windows/XAMPP
-$relative_path = str_replace('../', '', $file_path);
-$abs_file_path = __DIR__ . '/../' . $relative_path;
-$file_size = file_exists($abs_file_path) ? filesize($abs_file_path) : 0;
+// Build absolute path
+$abs_file_path = realpath(__DIR__ . '/' . $file_path);
+$file_size = $abs_file_path ? filesize($abs_file_path) : 0;
 
 // Code extensions that can be viewed
 $code_extensions = array('php', 'html', 'htm', 'css', 'scss', 'sass', 'less', 'js', 'jsx', 'ts', 'tsx', 'json', 'xml', 'yaml', 'yml', 'py', 'java', 'jar', 'cpp', 'c', 'h', 'hpp', 'cs', 'sql', 'txt', 'md', 'markdown', 'sh', 'bash', 'bat', 'ps1', 'cmd', 'rb', 'go', 'rs', 'swift', 'kt', 'kts', 'scala', 'r', 'lua', 'pl', 'pm', 'vue', 'svelte', 'asp', 'aspx', 'jsp', 'ini', 'conf', 'cfg', 'env', 'htaccess', 'gitignore', 'dockerfile', 'makefile', 'gradle', 'properties', 'log', 'csv');
