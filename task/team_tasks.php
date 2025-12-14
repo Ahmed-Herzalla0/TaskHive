@@ -128,7 +128,7 @@ if ($tasks) {
                                             <?php echo strtoupper(htmlspecialchars($task['status'])); ?>
                                         </span>
                                     </h4>
-                                    <p style="color: var(--gray-600);"><?php echo htmlspecialchars($task['description']); ?></p>
+                                    <p style="color: var(--gray-600);"><?php echo nl2br(str_replace(['\r\n', '\n', '\r'], '<br>', htmlspecialchars($task['description']))); ?></p>
                                 </div>
                                 <div class="col-md-4 text-right">
                                     <small style="color: var(--gray-500);">

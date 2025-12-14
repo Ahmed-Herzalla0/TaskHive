@@ -178,7 +178,7 @@ if (empty($_SESSION['csrf_token'])) {
                                         <?php echo strtoupper($task['status']); ?>
                                     </span>
                                 </h4>
-                                <p class="task-description"><?php echo htmlspecialchars($task['description']); ?></p>
+                                <p class="task-description"><?php echo nl2br(str_replace(['\r\n', '\n', '\r'], '<br>', htmlspecialchars($task['description']))); ?></p>
                                 <?php if ($task['start_date'] || $task['end_date']): ?>
                                 <div class="date-box">
                                     <?php if ($task['start_date']): ?>
