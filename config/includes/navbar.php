@@ -17,7 +17,7 @@ if (!function_exists('th_nav_template')) {
             ],
             'landing' => [
                 'brand' => 'TaskHive',
-                'brand_link' => 'index.php',
+                'brand_link' => '/index.php',
                 'brand_icon' => '🐝',
                 'theme' => 'landing',
                 'class' => '',
