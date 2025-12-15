@@ -11,7 +11,7 @@ if (!isLoggedIn() || !isAdmin()) {
 }
 
 $id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
-$user = ['username' => '', 'email' => '', 'role' => 'user', 'id' => 0];
+$user = ['username' => '', 'email' => '', 'role' => 'user', 'id' => 0, 'first_name' => '', 'last_name' => ''];
 $is_edit = false;
 
 if ($id) {
@@ -34,11 +34,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $email = sanitize($conn, $_POST['email']);
     $role = sanitize($conn, $_POST['role']);
     $password = $_POST['password'];
+    $first_name = sanitize($conn, $_POST['first_name']);
+    $last_name = sanitize($conn, $_POST['last_name']);
 
     if ($is_edit) {
         // Update
-        $stmt = $conn->prepare("UPDATE users SET username = ?, email = ?, role = ? WHERE id = ?");
-        $stmt->bind_param("sssi", $username, $email, $role, $id);
+        $stmt = $conn->prepare("UPDATE users SET username = ?, email = ?, role = ?, first_name = ?, last_name = ? WHERE id = ?");
+        $stmt->bind_param("sssssi", $username, $email, $role, $first_name, $last_name, $id);
         if ($stmt->execute()) {
             if (!empty($password)) {
                 $hashed = password_hash($password, PASSWORD_DEFAULT);
@@ -51,6 +53,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             // Refresh data
             $user['username'] = $username;
             $user['email'] = $email;
+            $user['first_name'] = $first_name;
+            $user['last_name'] = $last_name;
             $user['role'] = $role;
         } else {
             $error = "Error updating user. Please try again.";
@@ -62,8 +66,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $error = "Password is required for new users.";
         } else {
             $hashed = password_hash($password, PASSWORD_DEFAULT);
-            $stmt = $conn->prepare("INSERT INTO users (username, email, password, role) VALUES (?, ?, ?, ?)");
-            $stmt->bind_param("ssss", $username, $email, $hashed, $role);
+            $stmt = $conn->prepare("INSERT INTO users (username, email, password, role, first_name, last_name) VALUES (?, ?, ?, ?, ?, ?)");
+            $stmt->bind_param("ssssss", $username, $email, $hashed, $role, $first_name, $last_name);
             if ($stmt->execute()) {
                 $success = "User added.";
                 $id = $conn->insert_id;
@@ -112,6 +116,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         </div>
         
         <form method="POST" action="" id="userForm">
+            <div class="form-row" style="display: flex; gap: 16px;">
+                <div class="form-group" style="flex: 1;">
+                    <label><span class="glyphicon glyphicon-user" style="color: var(--primary);"></span> First Name</label>
+                    <input type="text" name="first_name" class="form-control" value="<?php echo htmlspecialchars($user['first_name']); ?>" placeholder="Enter first name">
+                </div>
+                <div class="form-group" style="flex: 1;">
+                    <label><span class="glyphicon glyphicon-user" style="color: var(--primary);"></span> Last Name</label>
+                    <input type="text" name="last_name" class="form-control" value="<?php echo htmlspecialchars($user['last_name']); ?>" placeholder="Enter last name">
+                </div>
+            </div>
+            
             <div class="form-group">
                 <label><span class="glyphicon glyphicon-user" style="color: var(--primary);"></span> Username</label>
                 <input type="text" name="username" class="form-control" value="<?php echo htmlspecialchars($user['username']); ?>" required placeholder="Enter username">
