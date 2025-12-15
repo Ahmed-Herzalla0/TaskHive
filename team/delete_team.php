@@ -37,7 +37,22 @@ if ($team['leader_id'] != $_SESSION['user_id'] && !isAdmin()) {
     redirect('../user/dashboard.php');
 }
 
-// Delete all submissions for this team's tasks
+// Get all submission files for this team's tasks and delete them from server
+$files_stmt = $conn->prepare("SELECT s.file_path FROM submissions s 
+                              INNER JOIN tasks t ON s.task_id = t.id 
+                              WHERE t.team_id = ?");
+$files_stmt->bind_param("i", $team_id);
+$files_stmt->execute();
+$files_result = $files_stmt->get_result();
+
+while ($file_row = $files_result->fetch_assoc()) {
+    if (!empty($file_row['file_path']) && file_exists($file_row['file_path'])) {
+        unlink($file_row['file_path']);
+    }
+}
+$files_stmt->close();
+
+// Delete all submissions for this team's tasks from database
 $stmt = $conn->prepare("DELETE s FROM submissions s 
                         INNER JOIN tasks t ON s.task_id = t.id 
                         WHERE t.team_id = ?");

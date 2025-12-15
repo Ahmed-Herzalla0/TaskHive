@@ -40,7 +40,20 @@ if ($task['leader_id'] != $_SESSION['user_id'] && !isAdmin()) {
     redirect('../user/dashboard.php');
 }
 
-// Delete all submissions for this task
+// Get all submission files for this task and delete them from server
+$files_stmt = $conn->prepare("SELECT file_path FROM submissions WHERE task_id = ?");
+$files_stmt->bind_param("i", $task_id);
+$files_stmt->execute();
+$files_result = $files_stmt->get_result();
+
+while ($file_row = $files_result->fetch_assoc()) {
+    if (!empty($file_row['file_path']) && file_exists($file_row['file_path'])) {
+        unlink($file_row['file_path']);
+    }
+}
+$files_stmt->close();
+
+// Delete all submissions for this task from database
 $stmt = $conn->prepare("DELETE FROM submissions WHERE task_id = ?");
 $stmt->bind_param("i", $task_id);
 $stmt->execute();
