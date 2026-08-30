@@ -1,6 +1,9 @@
 # Prevent directory browsing
 Options -Indexes
 
+# Force the default application entrypoint
+DirectoryIndex index.php
+
 # Enable rewrite for ngrok
 RewriteEngine On
 
